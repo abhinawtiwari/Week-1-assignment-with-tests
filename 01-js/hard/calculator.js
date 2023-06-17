@@ -17,6 +17,52 @@
   - `npm run test-calculator`
 */
 
-class Calculator {}
+class Calculator {
+  constructor() {
+    this.result = 0;
+  }
+  add(param) {
+    this.result += param;
+  }
+  subtract(param) {
+    this.result -= param;
+  }
+  multiply(param) {
+    this.result *= param;
+  }
+  divide(param) {
+    if (param === 0) throw new Error;
+    this.result /= param;
+  }
+  clear() {
+    this.result = 0;
+  }
+  getResult() {
+    return this.result;
+  }
+  calculate(expression) {
+    // Remove continuous spaces
+    const sanitizedExpression = expression.replace(/\s+/g, '');
+  
+    // Validate input for non-numerical characters
+    const invalidChars = sanitizedExpression.match(/[^0-9+\-*/().]/g);
+    if (invalidChars) {
+      throw new Error('Invalid input: Contains non-numerical characters');
+    }
+    if (sanitizedExpression.includes('/0')) {
+      console.log('Invalid input');
+      throw new Error;
+    }
+    // Evaluate the expression
+    try {
+      this.result = eval(sanitizedExpression);
+      return this.result;
+    } catch (error) {
+      throw new Error;
+    }
+  }
+}
 
+calc = new Calculator()
+console.log(calc.calculate('10 - (4 + 2)'));
 module.exports = Calculator;
