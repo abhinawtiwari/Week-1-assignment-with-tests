@@ -7,7 +7,16 @@
 */
 
 function isPalindrome(str) {
-  return true;
+  console.log('before reverse: ', str);
+  str = str.toLowerCase();
+  str = str.replace(/[^\w]|_/g, "");
+  console.log('after lower case and punctuation removal: ', str);
+  const old = str;
+  const reversedString = str.split('').reverse().join('');
+  if (old === reversedString) {
+    return true;
+  }
+  return false;
 }
 
 module.exports = isPalindrome;
